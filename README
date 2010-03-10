@@ -1,0 +1,18 @@
+Sequel mapping to Devise
+
+*experimental*
+
+My setup:
+
+- Rails 3
+- Devise 1.1pre2
+- Sequel 3.9.0
+
+
+put this in my Rails lib/ directory (RAILS_ROOT/lib/devise/orm/sequel.rb).
+then in the devise initializer file, i put in these 2 lines:
+
+  config.orm = :sequel
+  config.apply_schema = false
+
+Let me know if you have any suggestions and/or questions. janechii at gmail
