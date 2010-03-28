@@ -65,7 +65,7 @@ module Devise
         end
       end
 
-      # Sequal Schema, does nothing at model lever
+      # Sequal Schema, does nothing at model level
       def apply_schema(name, type, options={})
         # return unless Devise.apply_schema
         return
@@ -83,7 +83,14 @@ module Devise
             options[new_key] = options.delete(old_key)
           end
 
-          column(name.to_s.to_sym, type, options)
+          cname = name.to_s.to_sym
+          if cname == :email then
+            # special case for "authenticable" method to also add 
+            # auto incrementing id, since sequel doesn't do this automatically
+            primary_key(:id)
+          end
+
+          column(cname, type, options)
         end
       end
 
