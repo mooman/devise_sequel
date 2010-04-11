@@ -15,4 +15,22 @@ then in the devise initializer file, put in these 2 lines:
   require 'devise/orm/sequel'
   config.apply_schema = false
 
+THEN
+
+I like to extend only the models I need for Devise:
+
+--------
+class User < Sequel::Model
+  extend Devise::Models
+  extend Devise::Orm::Sequel::Hook
+
+  plugin :validation_class_methods
+  plugin :hook_class_methods
+
+  devise ... 
+end
+--------
+
+But if you want them to be globally available for all your Sequal models, then uncomment the lines at the bottom of the sequel.rb filie.
+
 Let me know if you have any suggestions and/or questions. janechii at gmail

@@ -13,34 +13,6 @@ module Devise
         extend ActiveSupport::Concern
 
         module ClassMethods
-          # Hooks for confirmable
-          def before_create(*args)
-            wrap_hook(:before_create, *args)
-          end
-
-          def after_create(*args)
-            wrap_hook(:after_create, *args)
-          end
-
-          def wrap_hook(action, *args)
-            options = args.extract_options!
-
-            args.each do |callback|
-              class_eval <<-METHOD, __FILE__, __LINE__ + 1
-                def #{callback}
-                  super if #{options[:if] || true}
-                end
-
-                alias_method :orig_#{action}, :#{action}
-
-                def #{action}
-                  orig_#{action}
-                  #{callback}
-                end
-              METHOD
-            end
-          end
-
           # Add ActiveRecord like finder
           def find(*args)
             options = args.extract_options!
@@ -56,7 +28,7 @@ module Devise
             end
           end
         end
-
+      
         def changed?
           modified?
         end
@@ -105,8 +77,14 @@ end
 
 if defined?(Sequel) then
     # extend Sequel Model
-    Sequel::Model.extend(Devise::Models)
-    Sequel::Model.extend(Devise::Orm::Sequel::Hook)
+    # uncomment the following lines to have ALL sequel models compatible with Devise
+
+    # Sequel::Model.extend(Devise::Models)
+    # Sequel::Model.extend(Devise::Orm::Sequel::Hook)
+    # Sequel::Model.plugin :active_model
+    # Sequel::Model.plugin :validation_class_methods
+    # Sequel::Model.plugin :hook_class_methods
+
     # probably just need the apply_schema method
     Sequel::Schema::Generator.send(:include, Devise::Orm::Sequel::Schema)
 end
