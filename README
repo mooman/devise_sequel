@@ -5,8 +5,8 @@ Sequel mapping to Devise
 My setup:
 
 - Rails 3
-- Devise 1.1.rc0
-- Sequel 3.10.0
+- Devise 1.1.2
+- Sequel 3.14.0 (most likely will work with much older versions too)
 
 
 put this in your Rails lib/ directory (RAILS_ROOT/lib/devise/orm/sequel.rb).
@@ -24,6 +24,7 @@ class User < Sequel::Model
   extend Devise::Models
   extend Devise::Orm::Sequel::Hook
 
+  plugin :active_model
   plugin :validation_class_methods
   plugin :hook_class_methods
 
