@@ -10,6 +10,7 @@ require "orm/sequel"
 
 I18n.load_path << "#{DEVISE_PATH}/test/support/locale/en.yml"
 require 'mocha'
+require 'webrat'
 
 Webrat.configure do |config|
   config.mode = :rails

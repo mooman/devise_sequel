@@ -1,7 +1,7 @@
 Sequel mapping to Devise
 ========================
 
-**A gem plugin is coming soon! (once all the tests passes)**
+**A gem plugin is coming soon! (once all the tests pass)**
 
 I like to extend only the models I need for Devise:
 
@@ -23,8 +23,8 @@ Let us know if you have any suggestions and/or questions by creating a new issue
 Credits / Contributors
 ======================
 
-Rachot Moragraan
-Daniel Lyons
+Rachot Moragraan       
+Daniel Lyons      
 
 A lot of testing designs are from dm-devise.
 
