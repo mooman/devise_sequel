@@ -7,7 +7,7 @@ module Devise
 
         module ClassMethods
           # Add ActiveRecord like finder
-          def find(*args)
+          def find (*args)
             options = args.extract_options!
             conds = (options[:conditions].to_hash.symbolize_keys rescue true)
 
@@ -21,22 +21,29 @@ module Devise
             end
           end
 
-          def create!(*args)
+          def method_missing (method, *args)
+            m = method.to_s.match(/^find_by_(.*)/)
+            super unless m
+            first(m[1].to_sym => args)
+          end
+
+
+          def create! (*args)
             o = new(*args)
             raise unless o.save
             o
           end
 
           # Hooks for confirmable
-          def before_create(*args)
+          def before_create (*args)
             wrap_hook(:before_create, *args)
           end
 
-          def after_create(*args)
+          def after_create (*args)
             wrap_hook(:after_create, *args)
           end
 
-          def wrap_hook(action, *args)
+          def wrap_hook (action, *args)
             options = args.extract_options!
             callbacks = []
 
@@ -67,18 +74,17 @@ module Devise
           modified?
         end
 
-        def save(flag=nil)
-          if flag == false
-            raise unless save
-          else
-            super
-          end
+        def save!
+          save(:raise_on_failure => true)
         end
 
-        def update_attributes(*args)
+        def update_attributes (*args)
           update(*args)
         end
 
+        def attributes= (hash, guarded=true)
+          (guarded) ? set(hash) : set_all(hash)
+        end
 
       end # Compatibility
 

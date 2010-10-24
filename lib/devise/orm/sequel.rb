@@ -8,9 +8,26 @@ module Devise
         def devise_modules_hook!
           extend Schema
           include Compatibility
+          include ActiveModel::Validations
+
+          # obviously this doesn't work yet
+          def self.validates_uniqueness_of(*fields)
+          end
+
           yield
         end
       end
+    end
+  end
+end
+
+# this is an issue with anonymous classes being selected too, which #name returns nil
+# raises lots of errors with Sequel. suggested fix from
+# https://rails.lighthouseapp.com/projects/8994/tickets/5252-activemodel-naming-should-take-care-of-anonymous-classes
+module ActiveModel
+  module Translation
+    def lookup_ancestors
+      self.ancestors.select { |x| not x.anonymous? and x.respond_to?(:model_name) }
     end
   end
 end
