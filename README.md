@@ -3,6 +3,8 @@ Sequel mapping to Devise
 
 **A gem plugin is coming soon! (once all the tests pass)**
 
+This experimental version should work for most basic things. Please report any issues.
+
 I like to extend only the models I need for Devise:
 
     class User < Sequel::Model
@@ -11,7 +13,6 @@ I like to extend only the models I need for Devise:
 
       # usually active_model is included already in any Sequel Rails 3 connectors
       # plugin :active_model
-      plugin :validation_class_methods
 
       devise ... 
     end
