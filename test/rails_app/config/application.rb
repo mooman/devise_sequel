@@ -6,8 +6,9 @@ require "action_mailer/railtie"
 require "active_resource/railtie"
 require "rails/test_unit/railtie"
 
-require 'sequel'
+require "sequel"
 require "sequel-rails/railtie"
+require "orm_adapter-sequel"
 require "devise"
 
 module RailsApp
@@ -21,5 +22,8 @@ module RailsApp
     config.filter_parameters << :password
 
     config.action_mailer.default_url_options = { :host => "localhost:3000" }
+
+    require 'omniauth/oauth'
+    require 'omniauth/openid'
   end
 end

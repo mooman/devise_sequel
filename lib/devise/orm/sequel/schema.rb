@@ -1,3 +1,6 @@
+require 'devise_sequel'
+require 'devise/schema'
+
 module Devise
   module Orm
     module Sequel

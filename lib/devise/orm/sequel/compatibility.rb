@@ -6,29 +6,10 @@ module Devise
         extend ActiveSupport::Concern
 
         module ClassMethods
-          # Add ActiveRecord like finder
-          def find (*args)
-            options = args.extract_options!
-            conds = (options[:conditions].to_hash.symbolize_keys rescue true)
 
-            case args.first
-              when :first
-                first(conds)
-              when :all
-                filter(conds).all
-              else
-                primary_key_lookup(args.first)
-            end
-          end
-
-          def method_missing (method, *args)
-            m = method.to_s.match(/^find_by_(.*)/)
-            super unless m
-            first(m[1].to_sym => args)
-          end
-
-
+          # for some reason devise tests still use create! from the model itself
           def create! (*args)
+#            to_adapter.create!(*args)
             o = new(*args)
             raise unless o.save
             o
@@ -43,10 +24,18 @@ module Devise
             wrap_hook(:after_create, *args)
           end
 
+          def before_save (*args)
+            wrap_hook(:before_save, *args)
+          end
+
           def wrap_hook (action, *args)
             options = args.extract_options!
             callbacks = []
 
+            # basically creates a new callback method with _devise_hook suffix
+            # so that the if option can be supported
+            # and then rewrite the original hook method to run the new callbacks
+            # and continue with original hook (it's not pretty)
             args.each do |callback|
               callbacks << new_callback = :"#{callback}_devise_hook"
 

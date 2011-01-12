@@ -1,6 +1,6 @@
 require 'shared_user'
 
-class User < Sequel::Model(:users)
+class User < Sequel::Model
   include Shim
   include SharedUser
 end
