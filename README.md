@@ -1,9 +1,21 @@
 Sequel mapping to Devise
 ========================
 
-**A gem plugin is coming soon! (once all the tests pass)**
+**At least version 1.2.rc of Devise is required**
 
-This experimental version should work for most basic things. Please report any issues.
+Please report any issues.
+
+Installation
+------------
+
+    # bundler
+    gem 'devise_sequel'
+
+Also, at the moment (0.0.2) please use the orm_adapter-sequel from my repository: https://github.com/mooman/orm_adapter-sequel
+This should be very temporary.
+
+Set-up
+------
 
 I like to extend only the models I need for Devise:
 
