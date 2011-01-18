@@ -1,7 +1,6 @@
 Sequel.migration do
   up do
     create_table :users do
-      primary_key :id
       String :username
       String :facebook_token
 
@@ -18,7 +17,6 @@ Sequel.migration do
     end
 
     create_table :admins do
-      primary_key :id
       database_authenticatable :null => true
       encryptable
       rememberable :use_salt => false
