@@ -12,14 +12,12 @@ require "orm/sequel"
 
 I18n.load_path << "#{DEVISE_PATH}/test/support/locale/en.yml"
 require 'mocha'
-require 'webrat'
 
+require 'webrat'
 Webrat.configure do |config|
   config.mode = :rails
   config.open_error_files = false
 end
-
-Devise::OmniAuth.test_mode!
 
 # Add support to load paths so we can overwrite broken webrat setup
 $:.unshift "#{DEVISE_PATH}/test/support"

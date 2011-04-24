@@ -11,7 +11,7 @@ Installation
     # bundler
     gem 'devise_sequel'
 
-Also, at the moment (0.0.2) please use the orm_adapter-sequel from my repository, which is a fork from the real project from elskwid: https://github.com/mooman/orm_adapter-sequel     
+Also, at the moment (0.0.3) please use the orm_adapter-sequel from my repository, which is a fork from the real project from elskwid: https://github.com/mooman/orm_adapter-sequel     
 This should be very temporary.
 
 You're going to need an ORM for rails also. Only sequel-rails has been tested to work this gem.
@@ -57,7 +57,7 @@ For schema migration, you can do something like this:
       end 
     end
 
-Very similar to the devise active record example. Remember, though, that Sequel doesn't blindly create a primary key id for you, if you need it, then you will need to specify so.
+Very similar to the devise active record example. "database_authenticatable" creates an autoincrementing primary key "id" field for you.
 
 Credits / Contributors
 ======================

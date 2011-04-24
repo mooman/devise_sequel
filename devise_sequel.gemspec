@@ -2,7 +2,7 @@ require 'rake'
 
 Gem::Specification.new do |s|
   s.name = "devise_sequel"
-  s.version = '0.0.2'
+  s.version = '0.0.3'
   s.platform = Gem::Platform::RUBY
   s.authors = ["Rachot Moragraan"]
   s.description = "Sequel support for Devise"
